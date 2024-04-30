@@ -10,6 +10,15 @@ on:
         options:
           - production
           - staging
+      keyword:
+        type: choice
+        required: true
+        default: apple
+        options:
+          - apple
+          - banana
+          - cherry
+          - dekopon
 
 jobs:
   build:
@@ -22,8 +31,7 @@ jobs:
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.event.inputs.environment }}
+    environment: ${{ github.event.inputs.environment }}
     steps:
       - uses: actions/checkout@v4
       - name: Run a multi-line script
