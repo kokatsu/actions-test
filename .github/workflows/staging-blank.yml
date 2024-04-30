@@ -26,8 +26,16 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, ${{ github.event.inputs.keyword }}!
 
-  deploy-hello:
+  check-deploy:
     needs: [build-hello, build-fruit]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check keyword
+        run: bash validate-inputs-staging.sh ${{ github.event.inputs.keyword }}
+
+  deploy-hello:
+    needs: [check-deploy]
     runs-on: ubuntu-latest
     environment:
       name: staging
@@ -39,7 +47,7 @@ jobs:
           echo test, and deploy your project.
 
   deploy-fruit:
-    needs: [build-hello, build-fruit]
+    needs: [check-deploy]
     runs-on: ubuntu-latest
     environment:
       name: staging
