@@ -2,6 +2,14 @@ name: CI
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        required: true
+        default: staging
+        options:
+          - production
+          - staging
 
 jobs:
   build:
@@ -15,7 +23,7 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     environment:
-      name: production
+      name: ${{ github.event.inputs.environment }}
     steps:
       - uses: actions/checkout@v4
       - name: Run a multi-line script
