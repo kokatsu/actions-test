@@ -1,0 +1,32 @@
+name: CI staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      keyword:
+        type: choice
+        required: true
+        default: cherry
+        options:
+          - cherry
+          - dekopon
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a one-line script
+        run: echo Hello, ${{ github.event.inputs.keyword }}!
+
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
