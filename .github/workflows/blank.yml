@@ -12,6 +12,7 @@ jobs:
         run: echo Hello, world!
 
   deploy:
+    needs: [build]
     runs-on: ubuntu-latest
     environment:
       name: production
