@@ -41,11 +41,13 @@ jobs:
       name: staging
     steps:
       - uses: actions/checkout@v4
+      - name: Set Up environment Variables
+        run: echo 'COMMIT_MESSAGE=$(git show -s --format=%s)' >> $GITHUB_ENV
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          echo '${{ toJSON(github.event) }}'
+          echo ${{ env.COMMIT_MESSAGE }}
 
   deploy-fruit:
     needs: [check-deploy]
