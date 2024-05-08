@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run a one-line script
-        run: echo Hello, ${{ github.event.inputs.keyword }}!
+        run: echo Hello, ${{ inputs.keyword }}!
 
   check-deploy:
     needs: [build-hello, build-fruit]
@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check keyword
-        run: bash validate-inputs-staging.sh ${{ github.event.inputs.keyword }}
+        run: bash validate-inputs-staging.sh ${{ inputs.keyword }}
 
   deploy-hello:
     needs: [check-deploy]
@@ -59,4 +59,4 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
-          echo test, and deploy ${{ github.event.inputs.keyword }}.
+          echo test, and deploy ${{ inputs.keyword }}.
