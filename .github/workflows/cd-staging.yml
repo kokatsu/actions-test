@@ -1,4 +1,4 @@
-name: CI staging
+name: CD staging
 
 on:
   workflow_dispatch:
