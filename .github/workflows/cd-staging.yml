@@ -1,10 +1,14 @@
 name: CD staging
 
+env:
+  KEYWORD: ${{ inputs.keyword }}
+
 on:
   workflow_dispatch:
     inputs:
       keyword:
         type: choice
+        description: keyword
         required: true
         default: cherry
         options:
@@ -48,6 +52,7 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           echo ${{ env.COMMIT_MESSAGE }}
+          echo $KEYWORD
 
   deploy-fruit:
     needs: [check-deploy]
