@@ -18,6 +18,8 @@ on:
 jobs:
   preprocess:
     runs-on: ubuntu-latest
+    outputs:
+      COMMIT_MESSAGE: ${{ steps.set_up_commit_message.outputs.COMMIT_MESSAGE }}
     steps:
       - uses: actions/checkout@v4
       - name: Set Up environment Variables
@@ -59,7 +61,7 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          echo ${{ steps.set_up_commit_message.outputs.COMMIT_MESSAGE }}
+          echo ${{ needs.preprocess.outputs.COMMIT_MESSAGE }}
           echo $KEYWORD
 
   deploy-fruit:
