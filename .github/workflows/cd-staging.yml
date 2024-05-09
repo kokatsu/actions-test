@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set Up environment Variables
-        run: echo "COMMIT_MESSAGE=$(git show -s --format=%s)" >> $GITHUB_OUTPUT
+        run: echo "COMMIT_MESSAGE=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
 
   build-hello:
     needs: [preprocess]
