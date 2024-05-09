@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set Up environment Variables
-        run: echo "COMMIT_MESSAGE=$(git show -s --format=%s)" >> $GITHUB_ENV
+        run: echo "COMMIT_MESSAGE=$(git show -s --format=%s)" >> $GITHUB_OUTPUT
 
   build-hello:
     needs: [preprocess]
@@ -58,7 +58,7 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          echo ${{ env.COMMIT_MESSAGE }}
+          echo ${{ needs.preprocess.outputs.COMMIT_MESSAGE }}
           echo $KEYWORD
 
   deploy-fruit:
