@@ -58,7 +58,7 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          echo ${{ needs.preprocess.outputs.COMMIT_MESSAGE }}
+          echo ${{ steps.preprocess.outputs.COMMIT_MESSAGE }}
           echo $KEYWORD
 
   deploy-fruit:
