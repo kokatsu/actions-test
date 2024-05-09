@@ -16,7 +16,15 @@ on:
           - dekopon
 
 jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set Up environment Variables
+        run: echo "COMMIT_MESSAGE=$(git show -s --format=%s)" >> $GITHUB_ENV
+
   build-hello:
+    needs: [preprocess]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,6 +32,7 @@ jobs:
         run: echo Hello, world!
 
   build-fruit:
+    needs: [preprocess]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -45,13 +54,11 @@ jobs:
       name: staging-hello
     steps:
       - uses: actions/checkout@v4
-      - name: Set Up environment Variables
-        run: echo 'COMMIT_MESSAGE=$(git show -s --format=%s)' >> $GITHUB_ENV
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          echo ${{ env.COMMIT_MESSAGE }}
+          echo $COMMIT_MESSAGE
           echo $KEYWORD
 
   deploy-fruit:
