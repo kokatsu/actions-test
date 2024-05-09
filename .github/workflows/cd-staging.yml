@@ -2,6 +2,12 @@ name: CD staging
 
 env:
   KEYWORD: ${{ inputs.keyword }}
+  REF_NAME: ${{ github.ref_name }}
+  COMMIT_SHA: ${{ github.sha }}
+  EVENT_SOURCE: ${{ github.event_name }}
+  USER_ID: ${{ github.actor_id }}
+  USER: ${{ github.actor }}
+  URL: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
 on:
   workflow_dispatch:
@@ -65,6 +71,12 @@ jobs:
           echo test, and deploy your project.
           echo ${{ needs.preprocess.outputs.COMMIT_MESSAGE }}
           echo $KEYWORD
+          echo $REF_NAME
+          echo $COMMIT_SHA
+          echo $EVENT_SOURCE
+          echo $USER_ID
+          echo $USER
+          echo $URL
 
   deploy-fruit:
     needs: [preprocess, check-deploy]
