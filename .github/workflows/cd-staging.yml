@@ -16,15 +16,7 @@ on:
           - dekopon
 
 jobs:
-  preprocess:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set Up environment Variables
-        run: echo "COMMIT_MESSAGE=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
-
   build-hello:
-    needs: [preprocess]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,7 +24,6 @@ jobs:
         run: echo Hello, world!
 
   build-fruit:
-    needs: [preprocess]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -58,7 +49,7 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          echo $COMMIT_MESSAGE
+          echo ${{ toJSON(github.event) }}
           echo $KEYWORD
 
   deploy-fruit:
