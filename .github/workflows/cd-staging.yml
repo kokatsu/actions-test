@@ -77,7 +77,7 @@ jobs:
           echo $USER_ID
           echo $USER
           echo $URL
-          echo "${${{ github.repository }}#${{ github.repository_owner }}/}"
+          echo ${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}
 
   deploy-fruit:
     needs: [preprocess, check-deploy]
