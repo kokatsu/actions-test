@@ -7,6 +7,6 @@ services:
     container_name: actions-test-vite
     working_dir: /app
     volumes:
-      - .:/app
+      - ./vue-project:/app
     ports:
       - "5173:5173"
