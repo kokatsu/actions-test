@@ -8,6 +8,7 @@ env:
   USER_ID: ${{ github.actor_id }}
   USER: ${{ github.actor }}
   URL: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+  JOB_ID: ${{ github.job_id }}
 
 on:
   workflow_dispatch:
@@ -61,8 +62,6 @@ jobs:
   deploy-hello:
     needs: [preprocess, check-deploy]
     runs-on: ubuntu-latest
-    environment:
-      name: staging-hello
     steps:
       - uses: actions/checkout@v4
       - name: Run a multi-line script
@@ -79,12 +78,11 @@ jobs:
           echo $URL
           REPO=${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}
           echo "__w/$REPO/$REPO"
+          echo $JOB_ID
 
   deploy-fruit:
     needs: [preprocess, check-deploy]
     runs-on: ubuntu-latest
-    environment:
-      name: staging-fruit
     steps:
       - uses: actions/checkout@v4
       - name: Run a multi-line script
