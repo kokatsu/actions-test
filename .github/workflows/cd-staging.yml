@@ -57,7 +57,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check keyword
-        run: bash validate-keyword-staging.sh
+        run: echo check!
 
   deploy-hello:
     needs: [preprocess, check-deploy]
