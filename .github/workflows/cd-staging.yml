@@ -8,7 +8,7 @@ env:
   USER_ID: ${{ github.actor_id }}
   USER: ${{ github.actor }}
   URL: "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-  JOB_ID: ${{ github.job_id }}
+  JOB: ${{ github.job }}
 
 on:
   workflow_dispatch:
@@ -78,7 +78,7 @@ jobs:
           echo $URL
           REPO=${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}
           echo "__w/$REPO/$REPO"
-          echo $JOB_ID
+          echo $JOB
 
   deploy-fruit:
     needs: [preprocess, check-deploy]
