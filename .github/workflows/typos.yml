@@ -2,6 +2,10 @@ name: typos
 
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   typos:
@@ -9,6 +13,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Run actions using diff_files
+        run: |
+          diff_files=$(git diff --name-only $"{{ github.head_ref }}" $"{{ github.base_ref }}""	 -- . \
+            | tr "\n" " ")
+          echo "# diff_files: ${diff_files}"
       - name: Writes changes in the local checkout
         uses: crate-ci/typos@master
         with:
