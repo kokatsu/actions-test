@@ -13,11 +13,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Install GitHub CLI
         run: sudo apt-get install gh
       - name: Run actions using diff_files
         run: |
-          git diff main "${{ github.sha }}"
+          git diff "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}"
       - name: Writes changes in the local checkout
         uses: crate-ci/typos@master
         with:
