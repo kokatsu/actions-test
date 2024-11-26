@@ -20,11 +20,11 @@ jobs:
       - name: Run actions using diff_files
         id: diff_files
         run: |
-          diff_files=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" \
-            | tr "\n" " ")
+          echo $(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" \
+            | tr "\n" " ") > .output
           echo "DIFF_FILES=$diff_files" >> $GITHUB_OUTPUT
       - name: Writes changes in the local checkout
         uses: crate-ci/typos@master
         with:
-          files: "${{ steps.diff_files.outputs.DIFF_FILES }}"
+          files: .output
           write_changes: false
