@@ -17,7 +17,7 @@ jobs:
         run: sudo apt-get install gh
       - name: Run actions using diff_files
         run: |
-          git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}"
+          git diff "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}"
       - name: Writes changes in the local checkout
         uses: crate-ci/typos@master
         with:
