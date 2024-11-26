@@ -18,11 +18,13 @@ jobs:
       - name: Install GitHub CLI
         run: sudo apt-get install gh
       - name: Run actions using diff_files
+        id: diff_files
         run: |
           diff_files=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" \
             | tr "\n" " ")
-          echo "Files changed in this PR: $diff_files"
+          echo "DIFF_FILES=$diff_files" >> $GITHUB_OUTPUT
       - name: Writes changes in the local checkout
         uses: crate-ci/typos@master
         with:
+          files: "${{ steps.diff_files.outputs.DIFF_FILES }}"
           write_changes: false
