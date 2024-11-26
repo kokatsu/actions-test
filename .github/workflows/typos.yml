@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Run actions using diff_files
         run: |
-          diff_files=$(git diff --name-only HEAD "${{ github.base_ref }}" -- . \
+          diff_files=$(git diff --name-only HEAD ${{ github.base_ref }} -- . \
             | tr "\n" " ")
           echo "# diff_files: ${diff_files}"
       - name: Writes changes in the local checkout
