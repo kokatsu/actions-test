@@ -20,7 +20,7 @@ jobs:
       - name: Run actions using diff_files
         id: diff_files
         run: |
-          diffs=$(git diff "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" --no-ext-diff --unified=0 --exit-code -a --no-prefix | egrep '^\\+')
+          diffs=$(git diff "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" --no-ext-diff --unified=0 --exit-code -a --no-prefix)
           echo "$diffs"
           echo "$diffs" > ./diffs.txt
       - name: Writes changes in the local checkout
